@@ -26,7 +26,7 @@ void one(const int a, const int b) {
  * Checks to see if the input parameter is a passing grade and prints out
  * if the grade is passing using the provided format specifiers. Note that
  * 'grade' is a char pointer pointing to the beginning of a C string. A grade
- * is considered passing if the numeric interpretation is above a 70. Suppose
+ * is considered passing iff the numeric interpretation is above a 70. Suppose
  * that 'grade' pointed to the string "73.58", then 'grade' would be passing in
  * this example. If 'grade' pointed to "it's over 9000!!!!", then that is still
  * not
@@ -200,10 +200,10 @@ void thirteen(int a) {
 }
 
 /**
- * If s points to the string "blue", then print "Orange and BLUE". If s points
+ * If s points to the string "blue", then print "Orange and BLUE!". If s points
  * to the string
- * "orange", then print "ORANGE and blue" else just print "orange and blue". Use
- * strcmp() and
+ * "orange", then print "ORANGE and blue!" else just print "orange and blue!".
+ * Use strcmp() and
  * friends to test for string equality.
  *
  * @param s
