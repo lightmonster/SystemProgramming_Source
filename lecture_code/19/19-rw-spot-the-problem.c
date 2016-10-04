@@ -1,10 +1,12 @@
 #include <pthread.h>
+#include <unistd.h>
+
 pthread_mutex_t m;
 pthread_cond_t cv;
 int reading = 0, writing =0;
 char* array[100];
 
-char* read(int key) {
+char* read_cache(int key) {
     if(key<0 || key >99) return NULL;
 
     pthread_mutex_lock(&m);
@@ -14,6 +16,7 @@ char* read(int key) {
     pthread_mutex_unlock(&m);
 /* Read here! */
     char* result = array[key];
+    sleep(2);
 
     pthread_mutex_lock(&m);
     reading--;
@@ -22,7 +25,7 @@ char* read(int key) {
     return result;
 }
 
-void write(int key, char* value) {
+void write_cache(int key, char* value) {
     if(key < 0 || key > 99) return;
     pthread_mutex_lock(&m);
     while (reading || writing)
@@ -31,6 +34,8 @@ void write(int key, char* value) {
     pthread_mutex_unlock(&m);
  /* Write here! */
     array[key] = value;
+    sleep(3);
+
     pthread_mutex_lock(&m);
     writing--;
     pthread_cond_broadcast(&cv);
