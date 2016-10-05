@@ -1,3 +1,4 @@
+#include <string.h>
 #include <math.h>
 #include <pthread.h>
 #include <stdio.h>
@@ -16,13 +17,18 @@ typedef struct philData {
     int x , y; // Screen position
 } Philosopher;
 
-int slowmode = 1;
+int slow_motion = 0;
+int slow_pickup = 0;
 
 int running = 1;
 void *PhilPhunction(void *p);
 
-int main()
+int main(int argc, char**argv)
 {
+    
+    slow_motion = argc >1 && strchr(argv[1] , 's');
+    slow_pickup = argc >1 && strchr(argv[1] , 'p');
+ 
     setvbuf(stdout, 0, _IONBF, 0); // no buffering
     printf("\033[H\033[J"); //Clear
     
@@ -76,7 +82,7 @@ void *PhilPhunction(void *p) {
         printf("\033[31m\033[%d;%dH%s is sleeping   ", phil->y,phil->x, phil->name);
         
         
-        if(slowmode) sleep(1); else usleep( 1+ rand()%8);
+        if(slow_motion) sleep(1); else usleep( 1+ rand()%8);
         
         fork_lft = phil->fork_lft;
         fork_rgt = phil->fork_rgt;
@@ -84,7 +90,7 @@ void *PhilPhunction(void *p) {
         tries_left = 0;   /* try twice before being forceful */
         do {
             failed = pthread_mutex_lock( fork_lft);
-            usleep( rand() % 30); // ADDITIONAL SLEEP TO DEMONSTRATE DEADLOCK
+            if(slow_pickup) usleep( rand() % 30); // ADDITIONAL SLEEP TO DEMONSTRATE DEADLOCK
             failed = (tries_left>0)? pthread_mutex_trylock( fork_rgt )
                                     : pthread_mutex_lock(fork_rgt);
             
@@ -100,7 +106,7 @@ void *PhilPhunction(void *p) {
         if (!failed) {
             printf("\033[35m\033[%d;%dH%s is eating\n", phil->y,phil->x,phil->name);
             
-            if(slowmode) sleep(1); else usleep( 1+ rand() % 8);
+            if(slow_motion) sleep(1); else usleep( 1+ rand() % 8);
             
             pthread_mutex_unlock( fork_rgt);
             pthread_mutex_unlock( fork_lft);
