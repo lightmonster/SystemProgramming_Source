@@ -101,7 +101,7 @@ int main(int argc, char** argv)
           fclose(file);
           free(buf);
         }		
-
+        shutdown(client_fd , SHUT_RDWR);
         close(client_fd);
     }
     return 0;
