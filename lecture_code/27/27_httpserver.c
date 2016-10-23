@@ -36,7 +36,7 @@ int main(int argc, char** argv)
     int s;
     int sock_fd = socket(AF_INET, SOCK_STREAM, 0);
 
-    struct addrinfo hints, *result;
+    struct addrinfo hints, *result = NULL;
     memset(&hints, 0, sizeof(struct addrinfo));
     hints.ai_family = AF_INET;
     hints.ai_socktype = SOCK_STREAM;
