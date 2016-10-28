@@ -1,0 +1,7 @@
+ls -i
+stat
+ln prog.c another.c
+echo "blah blah" >> another.c
+cat prog.c
+rm prog.c
+cat another.c
