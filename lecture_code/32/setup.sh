@@ -7,6 +7,7 @@ fi
 
 echo "On Ubuntu you may need to  sudo apt install uuid-dev"
 echo "Changing permisions and Setting secret.txt and a.out to be owned by $OTHERUSER"
+echo "After compiling, try running a.out under sudo and try setuid too"
 sudo chown "$OTHERUSER" secret.txt
 sudo chmod 400 secret.txt
 sudo rm a.out 2>/dev/null

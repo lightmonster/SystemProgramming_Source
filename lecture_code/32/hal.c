@@ -14,14 +14,13 @@ void quit(char*mesg) {
 }
 
 int main() { // who am i?
-  printf("getuid : %d\n", getuid());
-  printf("geteuid: %d\n", geteuid());
   
-  struct passwd *pw1 = getpwuid(getuid());
-  struct passwd *pw2 = getpwuid(geteuid());
-
-  if(pw1) printf("Hello %s,\n", pw1->pw_name);
-  if(pw2) printf("You are effectively %s,\n", pw2->pw_name);
+  struct passwd *pw;
+  pw = getpwuid(getuid());
+  if(pw) printf("getuid: %d, Hello %s,\n", getuid(), pw->pw_name);
+  
+  pw = getpwuid(geteuid());
+  if(pw) printf("geteuid(): %d, You are effectively %s,\n", geteuid(), pw->pw_name);
 
   printf("Opening file %s...\n", filename);
 
