@@ -23,6 +23,8 @@ int main() { // who am i?
   if(pw1) printf("Hello %s,\n", pw1->pw_name);
   if(pw2) printf("You are effectively %s,\n", pw2->pw_name);
 
+  printf("Opening file %s...\n", filename);
+
   FILE* f = fopen(filename,"r");
   if( !f ) quit("fopen failed");
   
