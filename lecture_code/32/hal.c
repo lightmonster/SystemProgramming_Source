@@ -17,9 +17,11 @@ int main() { // who am i?
   printf("getuid : %d\n", getuid());
   printf("geteuid: %d\n", geteuid());
   
-  struct passwd *pw = getpwuid(getuid());
+  struct passwd *pw1 = getpwuid(getuid());
+  struct passwd *pw2 = getpwuid(geteuid());
 
-  if(pw) printf("Hello %s,\n", pw->pw_name);
+  if(pw1) printf("Hello %s,\n", pw1->pw_name);
+  if(pw2) printf("You are effectively %s,\n", pw2->pw_name);
 
   FILE* f = fopen(filename,"r");
   if( !f ) quit("fopen failed");
