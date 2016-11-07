@@ -3,7 +3,7 @@
  * CS 241 - Fall 2016
  */
 
-#include "common.h"
+#include "utils.h"
 #include <alloca.h>
 #include <assert.h>
 #include <errno.h>
